@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Minha Sorte Hoje</title>
+	<style>
+		body {
+			background-color: #1a1a1a;
+			color: #fff;
+			font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+			font-size: 24px;
+			margin: 0;
+			padding: 0;
+		}
+
+		h1 {
+			font-size: 90px;
+			text-align: center;
+			margin-top: 50px;
+			margin-bottom: 20px;
+			text-shadow: 2px 2px 4px #000;
+		}
+
+		button {
+			background-color: #7d3cff;
+			border: none;
+			border-radius: 5px;
+			color: #fff;
+			cursor: pointer;
+			display: block;
+			font-size: 36px;
+			margin: 0 auto;
+			margin-top: 50px;
+			padding: 20px 40px;
+			text-shadow: 2px 2px 4px #000;
+			transition: background-color 0.5s ease;
+		}
+
+		button:hover {
+			background-color: #a571ff;
+		}
+
+		#numero {
+			display: block;
+			font-size: 72px;
+			margin: 0 auto;
+			margin-top: 50px;
+			text-align: center;
+			text-shadow: 2px 2px 4px #000;
+		}
+
+		p {
+			font-size: 24px;
+			margin: 0 auto;
+			margin-top: 50px;
+			text-align: center;
+			text-shadow: 2px 2px 4px #000;
+		}
+	</style>
+	<script>
+		function gerarNumero() {
+			var ultimoClique = localStorage.getItem("ultimoClique");
+			if (!ultimoClique || jaPassouUmDia(ultimoClique)) {
+				var numero = Math.floor(Math.random() * 100) + 1;
+				document.getElementById("numero").innerHTML = numero;
+				localStorage.setItem("ultimoClique", new Date().toISOString().substr(0, 10));
+			} else {
+				alert("Você só pode clicar no botão uma vez por dia!");
+			}
+		}
+
+		function jaPassouUmDia(ultimoClique) {
+			var umDiaEmMs = 24 * 60 * 60 * 1000;
+			return new Date().toISOString().substr(0, 10) !== ultimoClique;
+		}
+	</script>
+</head>
+<body>
+	<h1>Minha Sorte</h1>
+	<button onclick="gerarNumero()">Descobrir</button>
+	<p>Sorte Nível: <span id="numero"></span></p>
+</body>
+</html>
